@@ -23,19 +23,19 @@ new ETPL的参数，依次是指定模板文件的根目录，及模板文件的
 
 可以使用**etpl.js本来的配置参数**，作一个对象，传入new中
 
-此时你就可以在需要的时候，渲染对应的模板：
-	
-	// 渲染模板目录下的index文件
-	response.end(eptl.render('index', {
-		welcome:'hello',
-		title:'欢迎你'
-	}))
+然后就可以使用etpl.render('模板文件路径','数据')来得到渲染后的结果字符串了。
 
 ## 模板
 
 在Node下，一个文件就是一个天生的模板。
 
-所以，想声明一个叫index的target，直接在‘模板文件根目录’下新建一个index文件即可。而且，此文件开头**不**需要target声明语句。
+所以，想声明一个叫index的target，直接在‘模板文件根目录’下新建一个index文件即可。
+
+**推荐使用.html为模板文件后缀**，因为起码这个后缀可以在任何IDE里以良好的语法格式显示。不像鬼扯的.jade，.ejs，什么鬼，几个编辑器能自动识别语法呢？
+
+就这样，我们在模板根目录下创建一个index.html，其代码就如一个网页一般即可，当然也可以加入etpl的语法。
+
+而且，此文件开头**不**需要target声明语句。
 
 当然，你非要加target声明语句也可以，但请保持与文件名一致。如index.html，第一句非要加target，则是：`<!-- target:index -->`
 
@@ -77,3 +77,27 @@ new ETPL的参数，依次是指定模板文件的根目录，及模板文件的
 引用父级模板
     <!-- import:../main/content/li -->
    
+## 渲染模板文件
+
+此时你就可以在需要的时候，渲染对应的模板：
+	
+	// 渲染模板目录下的index文件
+	response.end(eptl.render('index', {
+		welcome:'hello',
+		title:'欢迎你'
+	}))
+	// 渲染模板目录下/content/list模板
+	response.end(eptl.render('content/list', {
+		list:[{
+			name:'lix',
+			age:11
+		}]
+	}))
+
+## 编译字符串
+
+有时候想临时编译一段模板字符串，可以像使用etpl一样，使用compile，得到一个渲染函数，并在需要的时候渲染：
+
+	let renderFn = etpl.compile('Hello ${etpl}');
+	console.log(renderFn({etpl:'etpl-wrap'}));
+
