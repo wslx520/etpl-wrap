@@ -1,5 +1,5 @@
 
-可clone本包，并启动test/server.js，然后访问 http://localhost:3001/ 查看效果。模板文件可参考test/views 里的示例
+可clone本包，并启动test/server.js，然后访问 http://localhost:3001/ 查看效果。模板文件可参考`test/views` 里的示例
 
 # etpl-wrap 使用文档
 
@@ -19,11 +19,11 @@ etpl-wrap是一个etpl的包装器，便于在**Node.js**下使用etpl模板引�
     const ETPL = require('../index.js');
     let etpl = new ETPL('./views','.html')
 
-new ETPL的参数，依次是指定模板文件的根目录，及模板文件的默认后缀名
+new ETPL的参数，依次是指定模板文件的根目录，及模板文件的默认后缀名——**后缀名支持多个**，如：['.html','.htm']。
 
 可以使用**etpl.js本来的配置参数**，作一个对象，传入new中
 
-然后就可以使用etpl.render('模板文件路径','数据')来得到渲染后的结果字符串了。
+然后就可以使用**etpl.render('模板文件路径','数据')**来得到渲染后的结果字符串了。
 
 ## 模板
 
@@ -72,9 +72,11 @@ new ETPL的参数，依次是指定模板文件的根目录，及模板文件的
 2.etpl的target name中，**不允许**包含.的其实
 
 引用子目录下的模板
+
     <!-- import:main/content/ -->
 
 引用父级模板
+
     <!-- import:../main/content/li -->
    
 ## 渲染模板文件
