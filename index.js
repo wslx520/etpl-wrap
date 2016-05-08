@@ -171,7 +171,7 @@ EtplWrap.prototype = {
     config: function (conf) {
         return this.engine.config(extend(this.options, conf));
     }
-}
+};
 ['render', 'compile', 'getRenderer', 'addFilter'].forEach(function (fnName) {
 	EtplWrap.prototype[fnName] = function (arg1, arg2) {
 		return this.engine[fnName](arg1, arg2);
