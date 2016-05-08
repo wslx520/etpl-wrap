@@ -1,0 +1,18 @@
+<div id="main">
+    这是来自main/index.html的内容
+    <div class="title">${title}</div>
+    <div class="content">
+        content
+        <!-- import: list -->
+        <!-- import: content/list -->
+    </div>
+    <div class="othercontent">
+        <!-- import:content -->
+    </div>
+    <aside>
+        引用父级模板：
+        <!-- import: ../side -->
+    </aside>
+</div>
+<!-- target:last -->
+<p>这是一个位于main/index.html同一文件的其他target: last，会被转换成target: main/last</p>

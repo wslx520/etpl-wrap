@@ -1,0 +1,23 @@
+{
+  "name": "etpl-wrap",
+  "version": "0.1.5",
+  "description": "wrap the template engine [etpl] for node environment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "etpl",
+    "node",
+	"etpl-wrap",
+	"etpl-node",
+    "template",
+    "engine"
+  ],
+  "repository": { 
+  	"type" : "git", 
+  	"url" : "https://github.com/npm/npm.git"
+  },
+  "author": "XLee",
+  "license": "MIT"
+}
