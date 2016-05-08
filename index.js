@@ -1,7 +1,7 @@
 /*
 * etpl-wrap
 * etpl的node包装器
-* Version:0.1.6
+* Version:0.1.7
 * Author: 十年灯
 * Url: https://github.com/wslx520/Node/tree/master/etpl-wrap
 * Site: http://jo2.org
@@ -170,12 +170,11 @@ EtplWrap.prototype = {
     },
     config: function (conf) {
         return this.engine.config(extend(this.options, conf));
-    },
-    render: function (target, data) {
-        return this.engine.render(target, data);
-    },
-    compile: function (str) {
-        return this.engine.compile(str);
     }
 }
+['render', 'compile', 'getRenderer', 'addFilter'].forEach(function (fnName) {
+	EtplWrap.prototype[fnName] = function (arg1, arg2) {
+		return this.engine[fnName](arg1, arg2);
+	}
+})
 module.exports =  EtplWrap;
