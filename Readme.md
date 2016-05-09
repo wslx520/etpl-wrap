@@ -1,13 +1,12 @@
-
-使用示例及文档请见：**[Github](https://github.com/wslx520/etpl-wrap)**，欢迎提交Issue及建议
-
 # etpl-wrap etpl模板引擎的Node包装器
 
 etpl-wrap用于包装etpl模板引擎，以便于在Node.js环境下使用。
 
 etpl-wrap包装后，是独立的模板引擎，不依赖任何web框架，但又适用于任何框架。
 
-[使用文档](https://github.com/wslx520/etpl-wrap/tree/master/doc)
+[详细使用文档](https://github.com/wslx520/etpl-wrap/tree/master/doc)
+
+**test**目录下是一些测试代码及测试模板
 
 ## 为什么要包装etpl?
 
@@ -17,19 +16,21 @@ etpl本身是可以用在Node下的，但由于服务器环境和浏览器端天
 
 **有些什么不同？**
 
-从后端语言的模板来讲，每个模板，一般就是一个文件，而不像浏览器端，需要显式的声明一个“模块”。如果接触后后端知识，比如JSP，就知道他们可以将几个模板文件互相include，组成想要的网页。
+1. 从后端语言的模板来讲，每个模板，一般就是一个文件，而不像浏览器端，需要显式的声明一个“模块”。如果接触后后端知识，比如JSP，就知道他们可以将几个模板文件互相include，组成想要的网页。
 
-另外，后端语言的模板文件，在不同目录下当然允许重名。如根目录root下有list.html，root/content下也能有list.html，这是非常正常的需求，而且两个文件明显应该是不同的。
+  而etpl受JS的天生限制，**没有直接compile/render一个文件的能力**。
 
-而在浏览器端，要你自己规避target名称冲突的问题。
+2. 后端语言的模板文件，在不同目录下当然允许重名。如根目录root下有list.html，root/content下也能有list.html，这是非常正常的需求，而且两个文件明显应该是不同的。
 
-因为后端的模块是一个个文件，所以也就涉及到路径的问题。浏览器端没这个问题（虽然etpl支持把target name设为路径形式如：main/content/list，但这需要你自己命名）
+  而在浏览器端，重名target是不允许的，要你自己规避target名称冲突的问题。
 
-由于文件天生独立的特性，所以在浏览器端，必要的target声明，在后端就不再需要的————每个模板文件就对应相应的target
+3. 后端的模块是一个个文件，所以也就涉及到路径的问题。浏览器端没这个问题（虽然etpl支持把target name设为路径形式如：main/content/list，但这需要你自己命名）
+
+4. 由于文件之间天生独立的特性，所以在浏览器端，必要的target声明，在后端就不再需要的————每个模板文件就对应相应的target
 
 ## 使用方法
 
-先安装etpl，再安装etpl-wrap，然后：
+先安装`etpl`，再安装`etpl-wrap`，然后：
 
 	const ETPL = require('etpl-wrap');
 	let etpl = new ETPL('./views','.html')
@@ -49,3 +50,4 @@ new ETPL的参数依次是：**模板文件根目录**，**模板文件默认后
 
 	etpl.render('content/list', data);
 
+[详细使用文档](https://github.com/wslx520/etpl-wrap/tree/master/doc)

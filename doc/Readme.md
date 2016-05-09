@@ -111,3 +111,4 @@ etpl-wrap构造器还可以接受第三个参数配置engine，是一个对象�
 	let renderFn = etpl.compile('Hello ${etpl}');
 	console.log(renderFn({etpl:'etpl-wrap'}));
 
+对etpl-wrap的思路过程有兴趣的可以访问：[etpl-wrap的产生](http://jo2.org/etpl-wrap/)

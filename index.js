@@ -1,7 +1,7 @@
 /*
 * etpl-wrap
 * etpl的node包装器
-* Version:0.1.9
+* Version:0.2.0
 * Author: 十年灯
 * Url: https://github.com/wslx520/Node/tree/master/etpl-wrap
 * Site: http://jo2.org
