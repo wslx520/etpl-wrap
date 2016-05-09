@@ -1,7 +1,7 @@
 /*
 * etpl-wrap
 * etpl的node包装器
-* Version:0.1.7
+* Version:0.1.9
 * Author: 十年灯
 * Url: https://github.com/wslx520/Node/tree/master/etpl-wrap
 * Site: http://jo2.org
@@ -42,24 +42,21 @@ const defaultConfig = {
 let DEBUG = true;
 let log = DEBUG ? console.log : function() {};
 let extNames = {};
-let mainFiles = {};
 let targetReg = /\s*target\s*:\s*([a-z0-9\/_-]+)\s*/;
 let targetcmdReg = null;
 let importcmdReg = null;
 // 遍历指定目录下的所有文件及目录，并对[文件]执行回调
 // 增加一个额外的参数，以避免用call调用函数造成效率损失
-function walk(root, callback, EW) {   
-     // 保持对EtplWrap的指向
-    let self = this;
+function walk(root, callback, EW) {
     fs.readdir(root, function (err, files) {
         if(!err) {
             files = files.filter(function (filename, index) {
-                let stat = fs.statSync(path.resolve(root, filename));
-                // log('isFile? ', stat.isFile())
+                let filePath = path.resolve(root, filename);
+                let stat = fs.statSync(filePath);
                 if(stat.isFile()) {
-                    callback(path.resolve(root, filename), filename, EW);                 
+                    callback(filePath, filename, EW);                 
                 } else {
-                    walk(path.resolve(root, filename), callback, EW);
+                    walk(filePath, callback, EW);
                 }
             })
         }
@@ -140,36 +137,31 @@ function compileFile (filepath, filename, EW) {
         }
     })
 }
-function EtplWrap(root, extname, conf) {
+function EtplWrap(root, ext, conf) {
     this.engine = ETPL;
     this.options = extend({},defaultConfig);
     if(conf) {
         this.config(conf);
     }
-    this.init(root, extname);
+    root = root || __dirname + '/views';
+    ext = ext || '.html';
+    if('string' === typeof ext) {
+        extNames[ext] = 1;
+    } else {
+        ext.forEach(function (xt) {
+            extNames[xt] = 1;
+        })            
+    }
+    this.options.root = root;
+    this.options.extname = ext;
+    // log('template path is ' + root);
+    walk(root, compileFile, this);
 }
 
 EtplWrap.prototype = {
-    init: function (root, ext) {
-        root = root || __dirname + '/views';
-        ext = ext || '.html';
-        let self = this;
-        if('string' === typeof ext) {
-            ext = [ext];
-        }
-        self.options.root = root;
-        self.options.extname = ext;
-        ext.forEach(function (xt) {
-            if(xt.charAt(0) !== '.') {
-                xt = '.'+xt;
-            }
-            extNames[xt] = 1;
-        })
-        // log('template path is ' + root);
-        walk(root, compileFile, self);
-    },
     config: function (conf) {
-        return this.engine.config(extend(this.options, conf));
+        extend(this.options, conf);
+        return this.engine.config(conf);
     }
 };
 ['render', 'compile', 'getRenderer', 'addFilter'].forEach(function (fnName) {
